@@ -8,6 +8,8 @@ const password = document.getElementById('password');
 const issuesContainer = document.getElementById('issues-container');
 const issueCount = document.getElementById('issue-count');
 
+let allIssue = [];
+
 
 
 //--------- login logic--------//
@@ -34,9 +36,11 @@ async function fetchCard() {
   const data = await res.json();
   allIssue = data.data;
   // console.log(allCards);
-  displayIssues(allIssue)
+  displayIssues(allIssue);
 }
 fetchCard();
+
+
 
 function displayIssues(issues) {
   issuesContainer.innerHTML = '';
@@ -121,3 +125,28 @@ function createIssueCard(issue) {
     return card;
 }
 
+
+// ---------button toggling-----------//
+
+function toggleStyle(status, btn) {
+    
+    const allBtn = document.querySelectorAll(".tab");
+
+    for (const tab of allBtn) {
+        tab.classList.remove("tab-active");
+  }
+  btn.classList.add("tab-active");
+  
+
+//-----filtering btn----//
+  let selectBtn = [];
+
+  if (status === "all") {
+    selectBtn = allIssue;
+  }
+  else {
+    selectBtn = allIssue.filter(issue => issue.status === status);
+  }
+
+  displayIssues(selectBtn);
+}
