@@ -7,9 +7,19 @@ const userName = document.getElementById('username');
 const password = document.getElementById('password');
 const issuesContainer = document.getElementById('issues-container');
 const issueCount = document.getElementById('issue-count');
+const loadingSpinner = document.getElementById("loadingSpinner");
 
 let allIssue = [];
 
+// -----Loading spinner---//
+function showLoading() {
+  loadingSpinner.classList.remove("hidden");
+  issuesContainer.innerHTML = "";
+}
+
+function hideLoading() {
+  loadingSpinner.classList.add("hidden");
+}
 
 
 //--------- login logic--------//
@@ -32,11 +42,14 @@ signupBtn.addEventListener('click', () => {
 
 // ----fetching card---//
 async function fetchCard() {
+  showLoading();
+
   const res = await fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues');
   const data = await res.json();
   allIssue = data.data;
   // console.log(allCards);
   displayIssues(allIssue);
+  hideLoading();
 }
 fetchCard();
 
@@ -84,8 +97,6 @@ function createIssueCard(issue) {
 
     const card = document.createElement("div");
     card.className = `bg-white border border-gray-100 border-t-4 ${borderCol} rounded-2xl p-6 shadow-sm hover:shadow-md cursor-pointer flex flex-col justify-between `;
-    
-
 
     card.innerHTML = `
         <div>
@@ -129,24 +140,31 @@ function createIssueCard(issue) {
 // ---------button toggling-----------//
 
 function toggleStyle(status, btn) {
-    
-    const allBtn = document.querySelectorAll(".tab");
+  showLoading(); 
 
-    for (const tab of allBtn) {
-        tab.classList.remove("tab-active");
+  const allBtn = document.querySelectorAll(".tab");
+  for (const tab of allBtn) {
+    tab.classList.remove("tab-active");
   }
+
   btn.classList.add("tab-active");
-  
 
-//-----filtering btn----//
-  let selectBtn = [];
+  //-- button filtering---//
+  setTimeout(function() {
+    
+    let selectBtn = [];
 
-  if (status === "all") {
-    selectBtn = allIssue;
-  }
-  else {
-    selectBtn = allIssue.filter(issue => issue.status === status);
-  }
+    if (status === "all") {
+      selectBtn = allIssue;
+    } else {
+      selectBtn = allIssue.filter(issue => issue.status === status);
+    }
 
-  displayIssues(selectBtn);
+    displayIssues(selectBtn);
+
+    hideLoading();
+
+  }, );
 }
+
+

@@ -8,11 +8,11 @@
 
   <!-- tailwind cdn -->
   <script src="https://cdn.tailwindcss.com"></script>
-<!-- daisyui cdn -->
+  <!-- daisyui cdn -->
   <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
-<!-- google fonts -->
+  <!-- google fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
-<!-- fontawesome cdn -->
+  <!-- fontawesome cdn -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
 
@@ -20,7 +20,7 @@
 
   <!-- ----------signup section------- -->
 
-  <section id="signup-page" class="mx-auto flex justify-center mb-5">
+  <section id="signup-page" class="mx-auto flex justify-center mb-5 ">
 
     <div class="bg-white p-5 rounded-2xl shadow-xl w-full max-w-md border border-gray-100 space-y-4 mt-5 mx-4">
       <div class="items-center text-center">
@@ -62,7 +62,8 @@
   <!-- ----------main section--------------- -->
   <section id="main-page" class="hidden">
     <!--------- navbar section-------->
-    <div class="bg-white  grid grid-cols-2 md: grid-row-3 items-center justify-between pt-5 pb-5 border-b border-gray-300 px-4 md:px-8 gap-4">
+    <div
+      class="bg-white  grid grid-cols-2 md: grid-row-3 items-center justify-between pt-5 pb-5 border-b border-gray-300 px-4 md:px-8 gap-4">
       <div class="flex items-center">
         <img class="w-8 md:w-9 mr-2" src="./assets/github-logo.png" alt="">
         <h1 class="font-bold text-lg md:text-xl">GitHub Issues Tracker</h1>
@@ -71,7 +72,8 @@
       <div class="flex flex-col sm:flex-row gap-3 md:w-auto">
 
         <div class="join border border-gray-500 rounded-lg flex w-full sm:w-auto">
-          <input id="search-input" type="text" placeholder="Search issues..." class="input input-sm md:input-md w-full focus:outline-none" />
+          <input id="search-input" type="text" placeholder="Search issues..."
+            class="input input-sm md:input-md w-full focus:outline-none" />
 
           <button id="search-btn" class="items-center border-none bg-transparent">
             <i class="px-4 fa-solid fa-magnifying-glass text-gray-500 hover:text-blue-600"></i>
@@ -87,9 +89,15 @@
 
       <div class="flex justify-start mb-4 w-full bg-white shadow-md rounded-2xl overflow-x-auto">
         <div class="tabs tabs-boxed bg-white border-none p-4 md:p-6 gap-2 min-w-max">
-          <button class="tab tab-active px-4 md:px-8 border border-gray-300">All</button>
-          <button class="text-gray-500 tab px-4 md:px-8 border border-gray-300">Open</button>
-          <button class="text-gray-500 tab px-4 md:px-8 border border-gray-300">Closed</button>
+
+          <button onclick="toggleStyle('all', this)"
+            class="tab tab-active px-4 md:px-8 border border-gray-300 font-semibold">All</button>
+
+          <button onclick="toggleStyle('open', this)"
+            class="tab text-gray-500 tab px-4 md:px-8 border border-gray-300 font-semibold">Open</button>
+
+          <button onclick="toggleStyle('closed', this)"
+            class="tab text-gray-500 tab px-4 md:px-8 border border-gray-300 font-semibold">Closed</button>
         </div>
 
       </div>
@@ -97,7 +105,7 @@
       <!--------------- issue card section ------------------>
 
       <div class="bg-white border rounded-xl p-5 mb-8 flex  justify-between items-center shadow-md gap-4">
-        
+
         <div class="flex items-center gap-4">
 
           <div class="w-11 h-11 bg-gray-200 rounded-full flex items-center justify-center">
@@ -117,9 +125,14 @@
       <!-- issue container -->
       <div id="issues-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
       </div>
+
+      <!-- loading spinner -->
+      <div id="loadingSpinner" class="h-[40vh] flex hidden justify-center items-center w-full">
+    <span class="loading loading-dots loading-lg text-primary"></span>
+</div>
+
     </div>
   </section>
-
 
   <script src="script.js"></script>
 </body>
