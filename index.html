@@ -8,114 +8,117 @@
 
   <!-- tailwind cdn -->
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- daisyui cdn -->
+<!-- daisyui cdn -->
   <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
-
-  <!-- Google fonts cdn -->
+<!-- google fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
-
-  <!-- Font awesome cdn -->
+<!-- fontawesome cdn -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-
 </head>
 
 <body class="bg-[#F8FAFC] min-h-screen">
 
-  <!----------- login page section----------- -->
+  <!-- ----------signup section------- -->
+
   <section id="signup-page" class="mx-auto flex justify-center mb-5">
 
-    <div class="bg-white p-5 rounded-2xl shadow-xl w-full max-w-md  border border-gray-100 space-y-4 mt-5">
-
+    <div class="bg-white p-5 rounded-2xl shadow-xl w-full max-w-md border border-gray-100 space-y-4 mt-5 mx-4">
       <div class="items-center text-center">
-        <img class="mx-auto mb-6 " src=".//assets/github-logo.png" alt="">
+
+        <img class="mx-auto mb-6 w-12" src="./assets/github-logo.png" alt="">
         <h1 class="text-2xl font-bold">GitHub Issue Tracker</h1>
         <p class="text-gray-500">Sign in to manage your issues</p>
+
       </div>
 
       <fieldset id="login-form">
 
         <label class="label font-semibold">Username</label>
-        <input id="username" type="email" class="input w-full border border-gray-400 " placeholder="Enter Username" />
+
+        <input id="username" type="text" class="input w-full border border-gray-400" placeholder="Enter Username" />
+
         <p class="text-[13px] text-[#4A00FF]">Default: admin</p>
 
         <label class="label font-semibold">Password</label>
         <input id="password" type="password" class="input w-full border border-gray-400" placeholder="Enter Password" />
-
         <p class="text-[13px] text-[#4A00FF]">Default: admin123</p>
-
       </fieldset>
+
       <button id="signup-btn" class="btn btn-primary w-full text-white">Sign In</button>
 
       <div class="text-center">
         <p class="">OR</p>
         <hr class="mb-3">
         <p class="mb-2 text-[#64748B]">Demo Credentials:</p>
-
-        <div class="text-center bg-[#F8FAFC] px-6 py-4">
-
+        <div class="text-center bg-[#F8FAFC] px-6 py-4 rounded-lg">
           <h1 class="font-bold">Username: <span class="font-normal">admin</span></h1>
           <h1 class="font-bold">Password: <span class="font-normal">admin123</span></h1>
-
         </div>
-      </div>
 
+      </div>
     </div>
   </section>
 
-  <!------------- main section ------------------>
+  <!-- ----------main section--------------- -->
   <section id="main-page" class="hidden">
-
-    <div class=" bg-white flex items-center justify-between pt-5 pb-5 border border-b-gray-300 px-8">
+    <!--------- navbar section-------->
+    <div class="bg-white  grid grid-cols-2 md: grid-row-3 items-center justify-between pt-5 pb-5 border-b border-gray-300 px-4 md:px-8 gap-4">
       <div class="flex items-center">
-        <img class="w-9 mr-2" src=".//assets/github-logo.png" alt="">
-        <h1 class="font-bold text-6">GitHub Issues Tracker</h1>
+        <img class="w-8 md:w-9 mr-2" src="./assets/github-logo.png" alt="">
+        <h1 class="font-bold text-lg md:text-xl">GitHub Issues Tracker</h1>
       </div>
 
-      <div class="flex gap-3">
-        <div class="join border border-gray-500 rounded-lg md:flex">
-          <input id="search-input" type="text" placeholder="Search issues..." class="input" />
-          <button id="search-btn" class=" items-center border-none">
-            <i class=" px-4  fa-solid fa-magnifying-glass text-gray-500 hover:text-blue-600"></i>
+      <div class="flex flex-col sm:flex-row gap-3 md:w-auto">
+
+        <div class="join border border-gray-500 rounded-lg flex w-full sm:w-auto">
+          <input id="search-input" type="text" placeholder="Search issues..." class="input input-sm md:input-md w-full focus:outline-none" />
+
+          <button id="search-btn" class="items-center border-none bg-transparent">
+            <i class="px-4 fa-solid fa-magnifying-glass text-gray-500 hover:text-blue-600"></i>
           </button>
         </div>
-        <button class="btn btn-primary bg-[#5D5FEF] text-white border-none">+ New issue</button>
+
+        <button class="btn btn-primary bg-[#5D5FEF] text-white border-none sm:w-auto">+ New issue</button>
       </div>
     </div>
 
-    <!-- main section -->
-    <div class="w-10/12 mx-auto p-4 md:p-8 mt-10">
-      <div class="flex justify-start mb-4 w-full bg-white shadow-md rounded-2xl">
-        <div class="tabs tabs-boxed bg-white border-none p-6 gap-2">
-          <button class=" tab tab-active px-8   border border-gray-300">All</button>
-          <button class="text-gray-500 tab px-8  border border-gray-300">Open</button>
-          <button class="text-gray-500 tab px-8 border border-gray-300">Closed</button>
+    <!---------------  button section ------------>
+    <div class="w-full md:w-10/12 mx-auto p-4 md:p-8 mt-5 md:mt-10">
+
+      <div class="flex justify-start mb-4 w-full bg-white shadow-md rounded-2xl overflow-x-auto">
+        <div class="tabs tabs-boxed bg-white border-none p-4 md:p-6 gap-2 min-w-max">
+          <button class="tab tab-active px-4 md:px-8 border border-gray-300">All</button>
+          <button class="text-gray-500 tab px-4 md:px-8 border border-gray-300">Open</button>
+          <button class="text-gray-500 tab px-4 md:px-8 border border-gray-300">Closed</button>
         </div>
+
       </div>
 
-      <!-- issue section -->
-      <div class="bg-white border rounded-xl p-5 mb-8 flex justify-between items-center shadow-md">
+      <!--------------- issue card section ------------------>
 
+      <div class="bg-white border rounded-xl p-5 mb-8 flex  justify-between items-center shadow-md gap-4">
+        
         <div class="flex items-center gap-4">
 
           <div class="w-11 h-11 bg-gray-200 rounded-full flex items-center justify-center">
-            <img src=".//assets/Aperture.png" alt="">
+            <img class="w-6" src="./assets/Aperture.png" alt="">
           </div>
-
           <div>
-            <h2 class="font-bold text-5"><span id="issue-count">0</span> Issues</h2>
+            <h2 class="font-bold text-xl"><span id="issue-count">0</span> Issues</h2>
             <p class="text-xs text-gray-400">Track and manage your project issues</p>
           </div>
         </div>
-        <div class="flex gap-4 text-xs font-semibold">
+        <div class="flex gap-4 font-semibold">
           <span class="text-[#00A96E] text-sm">● Open</span>
           <span class="text-[#A855F7] text-sm">● Closed</span>
         </div>
       </div>
+
+      <!-- issue container -->
+      <div id="issues-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+      </div>
     </div>
   </section>
-
-
 
 
   <script src="script.js"></script>
