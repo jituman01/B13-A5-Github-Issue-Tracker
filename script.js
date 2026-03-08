@@ -10,6 +10,8 @@ const loadingSpinner = document.getElementById("loadingSpinner");
 const modalContent = document.getElementById("modal-content");
 const modalBody = document.getElementById("modal-content");
 const issueModal = document.getElementById("issue-modal");
+const searchInput = document.getElementById("search-input");
+const searchBtn = document.getElementById("search-btn");
 
 let allIssue = [];
 
@@ -212,3 +214,38 @@ function showModal(id) {
     `;
     issueModal.showModal();
 }
+
+// ---search logic--//
+
+document.getElementById("search-btn").addEventListener("click", async () => {
+    const searchValue = searchInput.value.trim();
+
+    showLoading();
+
+    const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchValue}`);
+    const data = await res.json();
+    const searchCard = data.data;
+
+    if (searchCard && searchCard.length > 0) {
+        displayIssues(searchCard);
+    } else {
+        issuesContainer.innerHTML = `
+            <div class="col-span-full text-center py-20 bg-white rounded-2xl shadow-sm px-10">
+                <div class="text-center bg-gray-100 col-span-full rounded-xl py-20 px-10 space-y-6">
+                   <h2 class="text-4xl font-medium text-gray-400">
+                   Opps ! No Issue Found
+                    </h2>
+                    <p class="font-bold text-xl text-gray-600">Try Again</p>
+                </div>
+            </div>`;
+        issueCount.innerText = 0;
+    }
+
+    hideLoading();
+});
+
+searchInput.addEventListener("click", (issue) => {
+    if (issue.key === "Enter") {
+        searchBtn.click();
+    }
+});
