@@ -1,5 +1,4 @@
 // console.log('hello jitu');
-
 const signupPage = document.getElementById('signup-page')
 const signupBtn = document.getElementById('signup-btn');
 const mainPage = document.getElementById('main-page');
@@ -8,6 +7,9 @@ const password = document.getElementById('password');
 const issuesContainer = document.getElementById('issues-container');
 const issueCount = document.getElementById('issue-count');
 const loadingSpinner = document.getElementById("loadingSpinner");
+const modalContent = document.getElementById("modal-content");
+const modalBody = document.getElementById("modal-content");
+const issueModal = document.getElementById("issue-modal");
 
 let allIssue = [];
 
@@ -54,7 +56,7 @@ async function fetchCard() {
 fetchCard();
 
 
-
+  //---display isue logic----//
 function displayIssues(issues) {
   issuesContainer.innerHTML = '';
 
@@ -68,7 +70,6 @@ function displayIssues(issues) {
  
 
 // --------create card------//
-
 function createIssueCard(issue) {
     const { id, title, description, status, author, priority, labels, createdAt } = issue;
     
@@ -98,18 +99,20 @@ function createIssueCard(issue) {
     const card = document.createElement("div");
     card.className = `bg-white border border-gray-100 border-t-4 ${borderCol} rounded-2xl p-6 shadow-sm hover:shadow-md cursor-pointer flex flex-col justify-between `;
 
+    card.onclick = () => showModal(id);
+
     card.innerHTML = `
         <div>
             <div class="flex justify-between items-center mb-4">
-                <div class="flex items-center gap-2">
-                    <img src="${statusImg}" alt="${status}" style="width: 18px; height: 18px; object-fit: contain;" class="shrink-0"> 
-                    </div>
-
-                    <span class="px-2 py-1 rounded-xl text-[10px] font-bold uppercase ${priorityStatus}">
-                        ${priority ?? 'Low'}
-                    </span>
-                
+            <div class="flex items-center gap-2">
+              <img src="${statusImg}" alt="${status}" class="w-5 h-5"> 
             </div>
+
+            <span class="px-2 py-1 rounded-xl text-[10px] font-bold uppercase ${priorityStatus}">
+            ${priority ?? 'Low'}
+            </span>
+                
+        </div>
 
             <h3 class="font-semibold text-2 mb-2 text-black">${title}</h3>
             <p class="text-2 text-gray-500 mb-4 line-clamp-2">${description}</p>
@@ -129,16 +132,14 @@ function createIssueCard(issue) {
             <span class="text-[10px] text-gray-400 font-bold mr-1">#${id} </span>
             
             <p>by ${author}</p>
-            </div>
+          </div>
 
-            <div class="text-[10px] text-gray-400 font-bold"><p>${new Date(createdAt).toLocaleDateString('en-GB')}</p></div>
+          <div class="text-[10px] text-gray-400 font-bold"><p>${new Date(createdAt).toLocaleDateString('en-GB')}</p></div>
     `;
     return card;
 }
 
-
 // ---------button toggling-----------//
-
 function toggleStyle(status, btn) {
   showLoading(); 
 
@@ -167,4 +168,47 @@ function toggleStyle(status, btn) {
   }, );
 }
 
+// --modal logic----//
+function showModal(id) {
+  // console.log(id);
+    const item = allIssue.find(issue => issue.id === id);
 
+    modalBody.innerHTML = `
+        <div class="p-4">
+            <h2 class="text-6 font-bold mb-2 text-black">${item.title}</h2>
+            
+            <div class="flex items-center gap-3 mb-6">
+                <span class="badge ${item.status === 'open' ? 'bg-[#10B981]' : 'bg-[#ab5def]'} text-white border-none px-4 py-3 text-3 font-medium uppercase rounded-xl">${item.status}
+                </span>
+
+                <p class=" text-gray-400 font-medium">
+                    • Opened by <span class="text-gray-400">${item.author}</span> • ${new Date(item.createdAt).toLocaleDateString('en-GB')}
+                </p>
+            </div>
+
+            <div class="flex flex-wrap gap-2 mb-6">
+                ${item.labels.map(label => `
+                    <span class="bg-blue-100 text-blue-500 badge badge-outline uppercase font-medium text-[10px] px-3 py-1">${label}</span>
+                `).join('')}
+            </div>
+
+            <p class="text-4 text-gray-500 mb-6">
+                ${item.description}
+            </p>
+
+            <div class="grid grid-cols-2 gap-1 bg-gray-50 p-4 rounded-2xl border border-gray-100">
+                <div>
+                    <p class=" uppercase text-gray-400 mb-1">Assignee:</p>
+                    <p class="text-6 text-gray-800 font-semibold">${item.author}</p>
+                </div>
+                <div>
+                    <p class=" uppercase text-gray-400 mb-2">Priority:</p>
+                    
+                    <span class="badge bg-red-500 text-white font-semibold px-4 py-3 text-3 border-none">
+                         ${item.priority?.toUpperCase() ?? 'LOW'}</span>
+                </div>
+            </div>
+        </div>
+    `;
+    issueModal.showModal();
+}
