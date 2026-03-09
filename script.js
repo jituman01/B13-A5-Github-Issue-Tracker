@@ -36,7 +36,6 @@ signupBtn.addEventListener('click', () => {
     signupPage.classList.add('hidden')
     mainPage.classList.remove('hidden');
     
-    alert('Sign Up Successful')
   }
   else {
     alert('Sign Up Unsuccessful')
